@@ -16,6 +16,7 @@ class ModelBuilder: ModelBuilderProtocol {
     
     static func createAddingModule() -> UIViewController {
         let view = AddingViewController()
+        view.presenter = AddingPresenter(view: view)
         return view
     }
     

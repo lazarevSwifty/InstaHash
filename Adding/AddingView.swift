@@ -2,69 +2,54 @@ import UIKit
 
 class AddingView: UIView {
     
-    weak var navController: UINavigationController?
     let textView =  UITextView()
-    let button = UIButton()
-    
-    let barView = UIView()
-    let hashButton = UIImageView()
-    let label = UILabel()
-
-    var barButton = UIBarButtonItem()
-    
-    init(navBar: UINavigationController?) {
-        super.init(frame: .zero)
-        self.navController = navBar
-        addSubview(textView)
-
-    }
+    let copyButton = UIButton()
+    let saveButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        hashButton.image = UIImage(named: "hashtag")
-        label.text = "30"
-        label.textColor = .black
-        
-        hashButton.translatesAutoresizingMaskIntoConstraints = false
-        barView.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
+    func commonInit() {
         textView.translatesAutoresizingMaskIntoConstraints = false
-        barView.addSubview(hashButton)
-        barView.addSubview(label)
-        barButton = UIBarButtonItem(customView: barView)
-        navController?.navigationItem.rightBarButtonItem = barButton
+        textView.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 18)
         
+        copyButton.backgroundColor = .red
+        copyButton.translatesAutoresizingMaskIntoConstraints = false
+        copyButton.layer.cornerRadius = 10
+        saveButton.backgroundColor = .green
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.layer.cornerRadius = 10
         
+        addSubview(textView)
+        addSubview(copyButton)
+        addSubview(saveButton)
+    }
+    
+    func setupLayout() {
         NSLayoutConstraint.activate([
-            //текст вью на весь экран
             textView.topAnchor.constraint(equalTo: topAnchor),
             textView.leftAnchor.constraint(equalTo: leftAnchor),
             textView.rightAnchor.constraint(equalTo: rightAnchor),
-            textView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        
-            //кнопка navbar item
-            label.leftAnchor.constraint(equalTo: barView.leftAnchor),
-            label.topAnchor.constraint(equalTo: barView.topAnchor),
-            label.bottomAnchor.constraint(equalTo: barView.bottomAnchor),
-            label.widthAnchor.constraint(equalToConstant: 30),
-            label.heightAnchor.constraint(equalToConstant: 30),
-
-            hashButton.topAnchor.constraint(equalTo: barView.topAnchor),
-            hashButton.leftAnchor.constraint(equalTo: label.rightAnchor),
-            hashButton.rightAnchor.constraint(equalTo: barView.rightAnchor),
-            hashButton.bottomAnchor.constraint(equalTo: barView.bottomAnchor),
-            hashButton.widthAnchor.constraint(equalToConstant: 30),
-            hashButton.heightAnchor.constraint(equalToConstant: 30)
+            
+            copyButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 0),
+            copyButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            copyButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            copyButton.widthAnchor.constraint(equalTo: saveButton.widthAnchor, multiplier: 1),
+            copyButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            saveButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 0),
+            saveButton.leftAnchor.constraint(equalTo: copyButton.rightAnchor, constant: 10),
+            saveButton.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            saveButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            saveButton.heightAnchor.constraint(equalTo: copyButton.heightAnchor, multiplier: 1)
         ])
-        
     }
     
 }

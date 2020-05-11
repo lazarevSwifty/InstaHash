@@ -1,14 +1,8 @@
-//
-//  ViewController.swift
-//  InstaHash
-//
-//  Created by Владислав Лазарев on 16.04.2020.
-//  Copyright © 2020 Владислав Лазарев. All rights reserved.
-//
-
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, ViewSpecificController {
+    typealias RootView = MainView
+    
 
     var presenter: MainPresenterProtocol?
     
@@ -18,19 +12,41 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view().tableView.delegate = self
+        view().tableView.dataSource = self
+        setupUI()
+    }
+    
+    func setupUI() {
         let addPostButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPost))
         navigationItem.rightBarButtonItem = addPostButton
-
     }
 
     @objc func addPost() {
         presenter?.present()
-        print("vc print")
     }
 
 }
 
 extension MainViewController: MainViewProtocol {
+    func success() {
+        view().tableView.reloadData()
+    }
+    
+    
+}
+
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter?.posts?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+        //cell.configure(posts: presenter?.posts?[indexPath.row])
+        cell.textLabel?.text = presenter?.posts?[indexPath.row].postText
+        return cell
+    }
+    
     
 }

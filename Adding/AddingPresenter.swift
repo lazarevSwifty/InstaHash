@@ -1,9 +1,10 @@
 import UIKit
 
 protocol AddingViewProtocol: AnyObject {
+    func addHashTag()
 }
-protocol AddingPresenterProtocol: AnyObject {
-    func addHashtag()
+@objc protocol AddingPresenterProtocol: AnyObject {
+    @objc func hashTagClick()
 }
 
 
@@ -15,8 +16,8 @@ class AddingPresenter: AddingPresenterProtocol {
         self.view = view
     }
     
-    func addHashtag() {
-        
+    @objc func hashTagClick() {
+        view?.addHashTag()
     }
     
 }
