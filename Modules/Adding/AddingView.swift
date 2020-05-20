@@ -34,20 +34,20 @@ class AddingView: UIView {
     
     func setupLayout() {
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: topAnchor),
+            textView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             textView.leftAnchor.constraint(equalTo: leftAnchor),
             textView.rightAnchor.constraint(equalTo: rightAnchor),
             
             copyButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 0),
-            copyButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-            copyButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            copyButton.leftAnchor.constraint(equalTo: leftAnchor),
+            copyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             copyButton.widthAnchor.constraint(equalTo: saveButton.widthAnchor, multiplier: 1),
             copyButton.heightAnchor.constraint(equalToConstant: 50),
             
             saveButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 0),
             saveButton.leftAnchor.constraint(equalTo: copyButton.rightAnchor, constant: 10),
             saveButton.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-            saveButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            saveButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
             saveButton.heightAnchor.constraint(equalTo: copyButton.heightAnchor, multiplier: 1)
         ])
     }

@@ -3,6 +3,7 @@ import UIKit
 protocol ModelBuilderProtocol {
     static func createMainModule() -> UIViewController
     static func createAddingModule() -> UIViewController
+    static func createSettingsModule() -> UIViewController
 }
 
 class ModelBuilder: ModelBuilderProtocol {
@@ -20,5 +21,10 @@ class ModelBuilder: ModelBuilderProtocol {
         return view
     }
     
+    static func createSettingsModule() -> UIViewController {
+        let view = SettingsViewController()
+        view.presenter = SettingsPresenter(view: view)
+        return view
+    }
     
 }
